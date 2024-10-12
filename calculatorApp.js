@@ -35,15 +35,60 @@ function tokenize(expression) {
 }
 
 
-// TODO
+//+ helper function for calculate function
+//+ multiplication and division operations prioritized
+//+ adds results to an array that will have all of its elements summed in the end in calculate function
+function operationHelper(number, operator, arrayOfNumbers) {
+    if (operator === "-") {
+        arrayOfNumbers.push(-number);
+    }
+    else if (operator === "\u00D7") { // multiplication symbol
+        let multiplierNum = arrayOfNumbers.pop(); // remove most recent number added to array to multiply
+        arrayOfNumbers.push(number * multiplierNum);
+    }
+    else if (operator === "÷") {
+        let dividendNum = arrayOfNumbers.pop(); // remove most recent number added to array to divide
+        //! FIX: need to address case where there is a divide by 0
+        arrayOfNumbers.push(dividendNum / number); // outputs decimal answers
+    }
+    else { // addition
+        arrayOfNumbers.push(number);
+    }
+
+    console.log("arrayOfNumbers: " + arrayOfNumbers);
+}
+
+
 //+ the parameter, expression, is a string consisting of numbers and operators with no whitespace
+//+ prioritizes multiplication and division operations, addition/subtraction will be done at the end
 function calculate(expression) {
-    console.log("Expression: " + expression);
     const tokens = tokenize(expression);
     console.log("tokens: " + tokens);
 
-    return "Result";
+    let result = 0;
+    let currentNum = 0;
+    let arrayOfNumsToSum = [];
+    let operator = "+";
+
+    for (const token of tokens) {
+        if (isNumber(token)) {
+            currentNum = Number(token);
+        }
+        else {
+            operationHelper(currentNum, operator, arrayOfNumsToSum);
+            operator = token; // update operator to current token after handling operations before this one
+        }
+    }
+
+    operationHelper(currentNum, operator, arrayOfNumsToSum); // handle last operator to get last number into array
+
+    for (const number of arrayOfNumsToSum) {
+        result += number;
+    }
+
+    return result;
 }
+
 
 calculatorKeys.addEventListener("click", (e) => {
     let key = e.target;
