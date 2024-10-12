@@ -48,8 +48,14 @@ function operationHelper(number, operator, arrayOfNumbers) {
     }
     else if (operator === "÷") {
         let dividendNum = arrayOfNumbers.pop(); // remove most recent number added to array to divide
-        //! FIX: need to address case where there is a divide by 0
-        arrayOfNumbers.push(dividendNum / number); // outputs decimal answers
+        if (number === 0) {
+            arrayOfNumbers.push("Error");
+            return;
+        }
+        else {
+            arrayOfNumbers.push(dividendNum / number); // outputs decimal answers
+        }
+
     }
     else { // addition
         arrayOfNumbers.push(number);
@@ -81,6 +87,10 @@ function calculate(expression) {
     }
 
     operationHelper(currentNum, operator, arrayOfNumsToSum); // handle last operator to get last number into array
+
+    if (arrayOfNumsToSum.includes("Error")) { // divide by 0 happened somewhere in equation
+        return "Error";
+    }
 
     for (const number of arrayOfNumsToSum) {
         result += number;
