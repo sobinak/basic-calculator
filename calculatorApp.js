@@ -121,7 +121,7 @@ calculatorKeys.addEventListener("click", (e) => {
         calculatorDisplay.textContent = "";
     }
     else { //! FIX: area around buttons can be pressed and will produce output
-        console.log("Number " + key.textContent + " pressed!");
+        console.log("Key " + key.textContent + " pressed!");
         calculatorDisplay.textContent += key.textContent;
     }
 });

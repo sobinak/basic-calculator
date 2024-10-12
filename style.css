@@ -1,6 +1,7 @@
 .calculator {
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 500px;
+    font-size: 30px;
     margin: auto;
 }
 
@@ -8,5 +9,36 @@
     width: 100%;
     height: 100px;
     background-color: black;
-    color: white
+    color: white;
+    text-align: right;
+    font-size: 2em;
+    box-sizing: border-box;
+    padding: 0.25em;
+}
+
+.calculator-keys {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    height: 80%;
+}
+
+.operator-key {
+    font-size: 30px;
+    background-color: lightslategray;
+}
+
+.number-key {
+    font-size: 30px;
+}
+
+.equal-key {
+    font-size: 30px;
+    background-color: #f8bf77;
+    grid-column: -2;
+    grid-row: 2 / span 3;
+}
+
+.clear-key {
+    font-size: 30px;
+    background-color: #ff7373;
 }
